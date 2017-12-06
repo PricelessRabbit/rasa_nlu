@@ -55,7 +55,8 @@ class SpacyNLP(Component):
             nlp = spacy.load(spacy_model_name, parser=False)
         else:
             logger.info("Trying to load spacy model with name '{}' and custom words vectors from '{}'".format(spacy_model_name,spacy_words_vectors))
-            nlp = spacy.load(spacy_model_name, parser=False,vectors=spacy_words_vectors)
+            nlp = spacy.load(spacy_model_name, parser=False)
+            nlp.vocab.vectors.from_disk("../spacy_vectors")
         cls.ensure_proper_language_model(nlp)
         return SpacyNLP(nlp, config["language"], spacy_model_name)
 
